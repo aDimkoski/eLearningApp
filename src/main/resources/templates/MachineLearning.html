@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+          rel="stylesheet">
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+        <a class="navbar-brand" href="/home">eLearning</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="/home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/courses">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="/ourteam">OurTeam</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link" href="/contact/listings">
+                        Contact listings
+                    </a>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="/participants">
+                        Participants results
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="#">
+                        <th:block th:if="${#request.getRemoteUser() != null}"
+                                  th:text="${#request.getRemoteUser()}"></th:block>
+                    </a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="btn btn-light btn-sm ml-3 mt-1" href="/logout">
+                        Logout
+                    </a>
+                </li>
+
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-light btn-sm ms-3 mt-1" href="/login">
+                        Login
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview"
+                    type="button"
+                    role="tab" aria-controls="overview" aria-selected="true">Overview
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="introduction-tab" data-bs-toggle="tab" data-bs-target="#introduction"
+                    type="button"
+                    role="tab" aria-controls="introduction" aria-selected="false">What is Machine Learning
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="mlaat-tab" data-bs-toggle="tab" data-bs-target="#mlaat" type="button"
+                    role="tab" aria-controls="mlaat" aria-selected="false">ML Algorithms and Techniques
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="aiml-tab" data-bs-toggle="tab" data-bs-target="#aiml" type="button"
+                    role="tab" aria-controls="aiml" aria-selected="false">Relation between AI and ML
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="ann-tab" data-bs-toggle="tab" data-bs-target="#ann" type="button"
+                    role="tab" aria-controls="ann" aria-selected="false">Artificial Neural Networks
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="rldl-tab" data-bs-toggle="tab" data-bs-target="#rldl" type="button"
+                    role="tab" aria-controls="rldl" aria-selected="false">Reinforcement Learning and Deep Learning
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="nlp-tab" data-bs-toggle="tab" data-bs-target="#nlp" type="button"
+                    role="tab" aria-controls="nlp" aria-selected="false">Natural Language Processing
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tsa-tab" data-bs-toggle="tab" data-bs-target="#tsa" type="button"
+                    role="tab" aria-controls="tsa" aria-selected="false">Time Series Analysis
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="quiz-tab" data-bs-toggle="tab" data-bs-target="#quiz" type="button"
+                    role="tab" aria-controls="quiz" aria-selected="false">Quiz
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+            <div class="container">
+                <h4 class="mt-3">Welcome to the Course: Machine Learning</h4>
+                <p>&nbsp;</p>
+                <img src="/img/machine-learning-python.png" class="img-fluid" alt="ML">
+
+                <h4><span>Overview</span></h4>
+                <p>The purpose of this learning unit is to introduce the basic functionalities of Machine Learning.
+                    Understanding ML practically will guarantee you a secure and lucrative career in the tech industry.
+                    With an extensive ML skill set, you can provide great
+                    value to your employer and boost your relevance in the job marketplace.</p>
+                <p>In more detail, the learning unit discusses the following topics:</p>
+                <ul>
+                    <li><span>What is Machine Learning</span></li>
+                    <li><span>Machine Learning Algorithms and Techniques</span></li>
+                    <li><span>Relation between Artificial Intelligence and Machine Learning</span></li>
+                    <li><span><span></span></span><span>Artificial Neural Networks and their applications</span></li>
+                    <li><span>Reinforcement Learning and Deep Learning</span></li>
+                    <li><span>Natural Language Processing</span></li>
+                    <li><span>Time Series Analysis</span></li>
+                </ul>
+                <p></p>
+                <p>We recommend completing all sections of this learning unit and, once you have done so, we invite you
+                    to test your knowledge of the subject by completing a quiz.</p>
+                <p></p>
+                <p>&nbsp;</p>
+                <p>Please proceed to the next section&nbsp;<span>–</span>&nbsp;What is Machine Learning.</p>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="introduction" role="tabpanel" aria-labelledby="introduction-tab">
+            <div class="container">
+                <p class="mt-3"><i>Please watch the short video that will teach you the ML basics.</i></p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/ukzFI9rgwfU"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <p>&nbsp;</p>
+                <p class="mt-3"><i>If you prefer reading you can download this course in pdf.</i></p>
+                <ul>
+                    <li style="list-style: none">
+                        <img src="/img/icon.png" style="width: 24px;height: 24px;" alt="" role="presentation"
+                             aria-hidden="true">
+                        <a style="text-decoration: none;color: orange" href="/pdf/HCI%20Assignment%205%202022%20mk.pdf">
+                            ML basics</a>
+                    </li>
+                </ul>
+                <p>Please proceed to the next section&nbsp;<span>–</span>&nbsp;Machine Learning Algorithms and
+                    Techniques.</p>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="mlaat" role="tabpanel" aria-labelledby="mlaat-tab">
+            <div class="container">
+                <p class="mt-3"><i>Please watch the short video that will teach you ML Algorithms and Techniques.</i>
+                </p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/wL3KyYurkSk"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <p>&nbsp;</p>
+                <p class="mt-3"><i>If you prefer reading you can download this course in pdf.</i></p>
+                <ul>
+                    <li style="list-style: none">
+                        <img src="/img/icon.png" style="width: 24px;height: 24px;" alt="" role="presentation"
+                             aria-hidden="true">
+                        <a style="text-decoration: none;color: orange" href="/pdf/HCI%20Assignment%205%202022%20mk.pdf">
+                            ML Algorithms and Techniques</a>
+                    </li>
+                </ul>
+                <p>&nbsp;</p>
+                <p>Please proceed to the next section&nbsp;<span>–</span>&nbsp;Relation between Artificial Intelligence
+                    and Machine Learning.</p>
+            </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="aiml" role="tabpanel" aria-labelledby="aiml-tab">
+            <div class="container">
+                <p class="mt-3"><i>Please watch the short video that will teach you Relation between Artificial
+                    Intelligence and Machine Learning.</i></p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/J4Qsr93L1qs"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <p>&nbsp;</p>
+                <p class="mt-3"><i>If you prefer reading you can download this course in pdf.</i></p>
+                <ul>
+                    <li style="list-style: none">
+                        <img src="/img/icon.png" style="width: 24px;height: 24px;" alt="" role="presentation"
+                             aria-hidden="true">
+                        <a style="text-decoration: none;color: orange" href="/pdf/HCI%20Assignment%205%202022%20mk.pdf">
+                            Relation between Artificial Intelligence and Machine Learning</a>
+                    </li>
+                </ul>
+                <p>&nbsp;</p>
+                <p>Please proceed to the next section&nbsp;<span>–</span>&nbsp;Artificial Neural Networks and their
+                    applications.</p>
+            </div>
+        </div>
+
+
+        <div class="tab-pane fade" id="ann" role="tabpanel" aria-labelledby="ann-tab">
+            <div class="container">
+                <p class="mt-3"><i>Please watch the short video that will teach you the basics of Artificial Neural
+                    Networks and their applications.</i></p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/BdNO7CHd31A"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <p>&nbsp;</p>
+                <p class="mt-3"><i>If you prefer reading you can download this course in pdf.</i></p>
+                <ul>
+                    <li style="list-style: none">
+                        <img src="/img/icon.png" style="width: 24px;height: 24px;" alt="" role="presentation"
+                             aria-hidden="true">
+                        <a style="text-decoration: none;color: orange" href="/pdf/HCI%20Assignment%205%202022%20mk.pdf">
+                            Artificial Neural Networks and their applications</a>
+                    </li>
+                </ul>
+                <p>&nbsp;</p>
+                <p>Please proceed to the next section&nbsp;<span>–</span>&nbsp;Reinforcement Learning and Deep Learning.
+                </p>
+
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="rldl" role="tabpanel" aria-labelledby="rldl-tab">
+            <div class="container">
+                <p class="mt-3"><i>Please watch the short videos that will teach you the basics of Reinforcement
+                    Learning and Deep Learning.</i></p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/-WbN61qtTGQ"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <p>&nbsp;</p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/VyWAvY2CF9c"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p class="mt-3"><i>If you prefer reading you can download this course in pdf.</i></p>
+                <ul>
+                    <li style="list-style: none">
+                        <img src="/img/icon.png" style="width: 24px;height: 24px;" alt="" role="presentation"
+                             aria-hidden="true">
+                        <a style="text-decoration: none;color: orange" href="/pdf/HCI%20Assignment%205%202022%20mk.pdf">
+                            Reinforcement Learning and Deep Learning</a>
+                    </li>
+                </ul>
+                <p>&nbsp;</p>
+                <p>Please proceed to the next section&nbsp;<span>–</span>&nbsp;Natural Language Processing.</p>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="nlp" role="tabpanel" aria-labelledby="nlp-tab">
+            <div class="container">
+                <p class="mt-3"><i>Please watch the short video that will teach you the basics of Natural Language
+                    Processing.</i></p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/s5zuplW8ua8"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <p>&nbsp;</p>
+                <p class="mt-3"><i>If you prefer reading you can download this course in pdf.</i></p>
+                <ul>
+                    <li style="list-style: none">
+                        <img src="/img/icon.png" style="width: 24px;height: 24px;" alt="" role="presentation"
+                             aria-hidden="true">
+                        <a style="text-decoration: none;color: orange" href="/pdf/HCI%20Assignment%205%202022%20mk.pdf">
+                            Natural Language Processing</a>
+                    </li>
+                </ul>
+                <p>&nbsp;</p>
+                <p>Please proceed to the next section&nbsp;<span>–</span>&nbsp;Time Series Analysis.</p>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="tsa" role="tabpanel" aria-labelledby="tsa-tab">
+            <div class="container">
+                <p class="mt-3"><i>Please watch the short video that will teach you the basics of Time Series
+                    Analysis.</i></p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/PpnoNZYce_c"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <p>&nbsp;</p>
+                <p class="mt-3"><i>If you prefer reading you can download this course in pdf.</i></p>
+                <ul>
+                    <li style="list-style: none">
+                        <img src="/img/icon.png" style="width: 24px;height: 24px;" alt="" role="presentation"
+                             aria-hidden="true">
+                        <a style="text-decoration: none;color: orange" href="/pdf/HCI%20Assignment%205%202022%20mk.pdf">
+                            Time Series Analysis</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="quiz" role="tabpanel" aria-labelledby="quiz-tab">
+            <div class="container">
+                <p class="mt-3"><i>To pass the examination you need at least 60 points.
+                There are 10 questions, each valued with 10 points.</i></p>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <form class="ms-4" method="post" action="/courses/ml">
+                            <div class="question">
+                                <p><strong>Q1</strong>: Which of these types of visualizations is best to use to explore the correlation between two continuous features?
+                                </p>
+                                <label>
+                                    <input type="radio" name="one" value="a" required>Histogram</label><br>
+                                <label>
+                                    <input type="radio" name="one" value="b">Scatter Plot</label><br>
+                                <label>
+                                    <input type="radio" name="one" value="c">Sankey Diagram</label><br>
+                                <label>
+                                    <input type="radio" name="one" value="d">Pie Chart</label><br>
+                            </div>
+                            <div class="question mt-4">
+                                <p><strong>Q2</strong>: The primary difference between classification and regression is that classification is used to predict _____ values, while regression is used to predict ______ values.
+                                </p>
+                                <label>
+                                    <input type="radio" name="two" value="a" required>discrete, continuous</label><br>
+                                <label>
+                                    <input type="radio" name="two" value="b">ordinal, nominal</label><br>
+                                <label>
+                                    <input type="radio" name="two" value="c">nominal, binomial</label><br>
+                                <label>
+                                    <input type="radio" name="two" value="d">continuous, discrete</label><br>
+                            </div>
+
+                            <div class="question mt-4">
+                                <p><strong>Q3</strong>: Which of these is not a stage in the knowledge discovery process?
+                                </p>
+                                <label>
+                                    <input type="radio" name="three" value="a" required>Validation and Interpretation</label><br>
+                                <label>
+                                    <input type="radio" name="three" value="b">Modeling</label><br>
+                                <label>
+                                    <input type="radio" name="three" value="c">Data Summarization</label><br>
+                                <label>
+                                    <input type="radio" name="three" value="d">Data Exploration</label><br>
+                            </div>
+
+                            <div class="question mt-4">
+                                <p><strong>Q4</strong>: A dataset with two class values that is significantly skewed (more than 90%) towards one of those class values is known as _______ dataset.
+                                </p>
+                                <label>
+                                    <input type="radio" name="four" value="a" required>a skewed</label><br>
+                                <label>
+                                    <input type="radio" name="four" value="b">an imbalanced</label><br>
+                                <label>
+                                    <input type="radio" name="four" value="c">a bimodal</label><br>
+                                <label>
+                                    <input type="radio" name="four" value="d">an inverted</label><br>
+                            </div>
+
+                            <div class="question mt-4">
+                                <p><strong>Q5</strong>: The method of imputation that fills in missing values using similar instances from the same dataset is known as _________</p>
+                                <label>
+                                    <input type="radio" name="five" value="a" required>Warm-deck
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="five" value="b">Cold-deck</label><br>
+                                <label>
+                                    <input type="radio" name="five" value="c">Same-deck</label><br>
+                                <label>
+                                    <input type="radio" name="five" value="d">Hot-deck</label><br>
+                            </div>
+
+                            <div class="question mt-4">
+                                <p><strong>Q6</strong>: The attribute or feature that you are trying to predict, which is described by the other features within an instance is known as the ________.
+                                </p>
+                                <label>
+                                    <input type="radio" name="six" value="a" required>Feature</label><br>
+                                <label>
+                                    <input type="radio" name="six" value="b">Class</label><br>
+                                <label>
+                                    <input type="radio" name="six" value="c">Instance</label><br>
+                                <label>
+                                    <input type="radio" name="six" value="d">Dependent variable</label><br>
+                            </div>
+
+                            <div class="question mt-4">
+                                <p><strong>Q7</strong>: Error due to ______ are errors made as a result of the specified learning algorithm.</p>
+                                <label>
+                                    <input type="radio" name="seven" value="a" required>Bias</label><br>
+                                <label>
+                                    <input type="radio" name="seven" value="b">Sampling</label><br>
+                                <label>
+                                    <input type="radio" name="seven" value="c">Variance</label><br>
+                                <label>
+                                    <input type="radio" name="seven" value="d">Noise</label><br>
+                            </div>
+
+                            <div class="question mt-4">
+                                <p><strong>Q8</strong>: The random sampling method that tries to maintain the same class distribution as the original dataset is known as ___________.
+                                </p>
+                                <label>
+                                    <input type="radio" name="eight" value="a" required>Stratified random sampling</label><br>
+                                <label>
+                                    <input type="radio" name="eight" value="b">Random sampling with replacement</label><br>
+                                <label>
+                                    <input type="radio" name="eight" value="c">Systematic random sampling</label><br>
+                                <label>
+                                    <input type="radio" name="eight" value="d">Purposeful random sampling</label><br>
+                            </div>
+
+                            <div class="question mt-4">
+                                <p><strong>Q9</strong>: As part of the data transformation process, we sometimes have to discretize our data or create dummy variables. Which of these is a reason why we would need to do this?
+                                </p>
+                                <label>
+                                    <input type="radio" name="nine" value="a" required>It helps when trying to fix duplicate data.</label><br>
+                                <label>
+                                    <input type="radio" name="nine" value="b">Some algorithms only work with either continuous or discrete variables.
+                                </label><br>
+                                <label>
+                                    <input type="radio" name="nine" value="c">This is an important step in balancing imbalanced datasets.</label><br>
+                                <label>
+                                    <input type="radio" name="nine" value="d">This is an approach to normalize our data set.
+                                </label><br>
+                            </div>
+
+                            <div class="question mt-4">
+                                <p><strong>Q10</strong>: Which of these data transformation approaches results in a data set with the mean located at zero.
+                                </p>
+                                <label>
+                                    <input type="radio" name="ten" value="a" required>decimal scaling</label><br>
+                                <label>
+                                    <input type="radio" name="ten" value="b">mean-max normalization</label><br>
+                                <label>
+                                    <input type="radio" name="ten" value="c">z-score normalization</label><br>
+                                <label>
+                                    <input type="radio" name="ten" value="d">min-max normalization</label><br>
+                            </div>
+
+                            <button class="btn btn-success mt-4" style="width: 100px">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+
+</div>
+
+<footer class="text-center text-lg-start text-white"
+        style="background-color: #1c2331">
+
+    <section class="d-flex justify-content-between p-4"
+             style="background-color: #06BBCC">
+
+        <div class="me-5">
+            <span>Get connected with us on social networks:</span>
+        </div>
+
+
+
+        <div>
+            <a href="https://www.facebook.com/" class="text-white me-4">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/?lang=en" class="text-white me-4">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.google.com/" class="text-white me-4">
+                <i class="fab fa-google"></i>
+            </a>
+            <a href="https://www.instagram.com/?hl=en" class="text-white me-4">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/" class="text-white me-4">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/" class="text-white me-4">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+
+    </section>
+
+
+
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+
+            <div class="row mt-3">
+
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+                    <h6 class="fw-bold">eLearning</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #06BBCC; height: 2px"
+                    />
+                    <p>
+                        eLearning is an online learning platform with hundreds of creative
+                        courses and classes presented by our experts to help you learn new skills.
+                    </p>
+                </div>
+
+
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                    <h6 class="text-uppercase fw-bold">Courses</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #06BBCC; height: 2px"
+                    />
+                    <p>
+                        <a href="/courses/ml" class="text-white">Machine Learning</a>
+                    </p>
+                    <p>
+                        <a href="/courses/dl" class="text-white">Deep Learning</a>
+                    </p>
+                    <p>
+                        <a href="/courses/ai" class="text-white">Artificial intelligence</a>
+                    </p>
+                </div>
+
+
+
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                    <h6 class="text-uppercase fw-bold">Useful links</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #06BBCC; height: 2px"
+                    />
+                    <p>
+                        <a href="https://bitly.com/" class="text-white">Bitly</a>
+                    </p>
+                    <p>
+                        <a href="https://sniply.io/" class="text-white">Sniply</a>
+                    </p>
+                    <p>
+                        <a href="https://zapier.com/" class="text-white">Zapier</a>
+                    </p>
+                    <p>
+                        <a href="https://www.rebrandly.com/" class="text-white">Rebrandly</a>
+                    </p>
+                </div>
+
+
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+                    <h6 class="text-uppercase fw-bold">Contact</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #06BBCC; height: 2px"
+                    />
+                    <p><i class="fas fa-home mr-3"></i>eLearning</p>
+                    <p><i class="fas fa-envelope mr-3"></i>contact@elearning.com</p>
+                    <p><i class="fas fa-phone mr-3"></i>+38977888902</p>
+                    <p><i class="fas fa-print mr-3"></i>+000000</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <div th:if="${messageFlag==true}">
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style="color: black">Examination results</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="color: black">
+                        <div th:if="${message}>=60">
+                            Congratulations! You have successfully passed the examination.
+                            You now know the basics of Machine Learning, and you can continue to some other
+                            more advanced courses about ML.<br>
+                            <div class="d-flex flex-row">
+                                Your score: &nbsp;<div style="color: green" th:text="${message}"></div> <span style="color: green">/100</span>
+                            </div>
+                        </div>
+
+                        <div th:if="${message}<60">
+                            You didn't pass the examination. Feel free to try again.
+                            To pass the examination you need at least 60 points. <br>
+                            <div class="d-flex flex-row">
+                                Your score: &nbsp;<div style="color: red" th:text="${message}"></div> <span style="color: red">/100</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" class="btn btn-secondary" href="/courses">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2022 Copyright: Aleksandar Dimkoski
+    </div>
+
+</footer>
+<script>
+    $(document).ready(function () {
+        $("#myModal").modal('show');
+    });
+</script>
+
+</body>
+</html>

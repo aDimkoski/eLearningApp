@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    .btn-primary {
+      background-color: #06BBCC;
+      border-color: #06BBCC;
+    }
+  </style>
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+  <!-- Icon Font Stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container px-5">
+    <a class="navbar-brand" href="/home">eLearning</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+            class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" aria-current="page" href="/home">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="/courses">Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="/ourteam">OurTeam</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+
+        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+          <a class="nav-link" href="/contact/listings">
+             Contact listings
+          </a>
+        </li>
+
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a class="nav-link" href="/participants">
+            Participants results
+          </a>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a class="nav-link" href="#">
+            <th:block th:if="${#request.getRemoteUser() != null}"
+                      th:text="${#request.getRemoteUser()}"></th:block>
+          </a>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a class="btn btn-light btn-sm ml-3 mt-1" href="/logout">
+            Logout
+          </a>
+        </li>
+
+        <li class="nav-item" sec:authorize="!isAuthenticated()">
+          <a class="btn btn-light btn-sm ms-3 mt-1" href="/login">
+            Login
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid bg-primary py-5 mb-5 page-header" style="background-image: url('/img/textured-wallpaper-6.jpg')">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 text-center">
+        <h1 class="display-3 text-white animated slideInDown">About Us</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a class="text-white" href="/home">Home</a></li>
+            <li class="breadcrumb-item text-white active" aria-current="page">About</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-xxl py-2 mb-5">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+        <div class="position-relative h-100">
+          <img class="img-fluid position-absolute w-100 h-100" src="./img/people-1979261_960_720.jpg" alt="" style="object-fit: cover;">
+        </div>
+      </div>
+      <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+        <h1 class="mb-4">eLearning</h1>
+        <p class="mb-4">eLearning, or electronic learning, is the delivery of learning and training through
+          digital resources.</p>
+        <p class="mb-4">Although eLearning is based on non formalized learning, it is provided through electronic
+          devices such as computers, tablets and even cellular phones that are connected to the internet. This makes
+          it easy for users to learn anytime, anywhere, with few, if any, restrictions. Basically, eLearning is
+          training, learning, or education delivered online through a computer or any other digital device.
+        </p>
+        <div class="row gy-2 gx-4 mb-4">
+          <div class="col-sm-6">
+            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>eLearning culture</p>
+          </div>
+          <div class="col-sm-6">
+            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Cost-Effective</p>
+          </div>
+          <div class="col-sm-6">
+            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Improves performance</p>
+          </div>
+          <div class="col-sm-6">
+            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Higher productivity</p>
+          </div>
+          <div class="col-sm-6">
+            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Lower environmental impact</p>
+          </div>
+          <div class="col-sm-6">
+            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Flexible learning</p>
+          </div>
+        </div>
+        <a class="btn btn-primary py-3 px-5 mt-2" href="/courses">Start learning</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<footer class="text-center text-lg-start text-white"
+        style="background-color: #1c2331">
+
+  <section class="d-flex justify-content-between p-4"
+           style="background-color: #06BBCC">
+
+    <div class="me-5">
+      <span>Get connected with us on social networks:</span>
+    </div>
+
+
+
+    <div>
+      <a href="https://www.facebook.com/" class="text-white me-4">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://twitter.com/?lang=en" class="text-white me-4">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.google.com/" class="text-white me-4">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="https://www.instagram.com/?hl=en" class="text-white me-4">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.linkedin.com/" class="text-white me-4">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="https://github.com/" class="text-white me-4">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+
+  </section>
+
+
+
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+
+      <div class="row mt-3">
+
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+          <h6 class="fw-bold">eLearning</h6>
+          <hr
+                  class="mb-4 mt-0 d-inline-block mx-auto"
+                  style="width: 60px; background-color: #06BBCC; height: 2px"
+          />
+          <p>
+            eLearning is an online learning platform with hundreds of creative
+            courses and classes presented by our experts to help you learn new skills.
+          </p>
+        </div>
+
+
+
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <h6 class="text-uppercase fw-bold">Courses</h6>
+          <hr
+                  class="mb-4 mt-0 d-inline-block mx-auto"
+                  style="width: 60px; background-color: #06BBCC; height: 2px"
+          />
+          <p>
+            <a href="/courses/ml" class="text-white">Machine Learning</a>
+          </p>
+          <p>
+            <a href="/courses/dl" class="text-white">Deep Learning</a>
+          </p>
+          <p>
+            <a href="/courses/ai" class="text-white">Artificial intelligence</a>
+          </p>
+        </div>
+
+
+
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <h6 class="text-uppercase fw-bold">Useful links</h6>
+          <hr
+                  class="mb-4 mt-0 d-inline-block mx-auto"
+                  style="width: 60px; background-color: #06BBCC; height: 2px"
+          />
+          <p>
+            <a href="https://bitly.com/" class="text-white">Bitly</a>
+          </p>
+          <p>
+            <a href="https://sniply.io/" class="text-white">Sniply</a>
+          </p>
+          <p>
+            <a href="https://zapier.com/" class="text-white">Zapier</a>
+          </p>
+          <p>
+            <a href="https://www.rebrandly.com/" class="text-white">Rebrandly</a>
+          </p>
+        </div>
+
+
+
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+          <h6 class="text-uppercase fw-bold">Contact</h6>
+          <hr
+                  class="mb-4 mt-0 d-inline-block mx-auto"
+                  style="width: 60px; background-color: #06BBCC; height: 2px"
+          />
+          <p><i class="fas fa-home mr-3"></i>eLearning</p>
+          <p><i class="fas fa-envelope mr-3"></i>contact@elearning.com</p>
+          <p><i class="fas fa-phone mr-3"></i>+38977888902</p>
+          <p><i class="fas fa-print mr-3"></i>+000000</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2022 Copyright: Aleksandar Dimkoski
+  </div>
+
+</footer>
+
+
+</body>
+</html>
